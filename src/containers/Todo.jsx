@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTask,
@@ -15,6 +15,12 @@ const Todo = () => {
   const [editText, setEditText] = useState("");
   const tasks = useSelector((state) => state.taskReducer.task);
   const dispatch = useDispatch();
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  });
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -66,6 +72,7 @@ const Todo = () => {
           <input
             required
             type="text"
+            ref={inputRef}
             value={userTask}
             onChange={(e) => setUserTask(e.target.value)}
             placeholder="Enter a new task..."
